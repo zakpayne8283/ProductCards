@@ -1,6 +1,7 @@
 import React from "react";
 
 import axios from "axios";
+import debounce from "lodash.debounce";
 
 import { Card } from "./Card";
 
@@ -9,11 +10,23 @@ export class App extends React.Component {
     super(props);
     this.state = {
       cards: [],
-      cardsShown: 6
+      cardsShown: 9
     };
 
     // Bindings
     this.loadMoreCards = this.loadMoreCards.bind(this);
+
+    // Handle the infinite scroll
+    window.onscroll = debounce(() => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight
+      ) {
+        this.setState({
+          cardsShown: this.state.cardsShown + 3
+        });
+      }
+    }, 100);
   }
 
   componentDidMount() {
