@@ -1,2 +1,0 @@
-# ProductCards
-Created with CodeSandbox
