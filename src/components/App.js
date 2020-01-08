@@ -4,17 +4,21 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 
 import { Card } from "./Card";
+import { Modal } from "./Modal";
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       cards: [],
-      cardsShown: 9
+      cardsShown: 9,
+      modalCard: false
     };
 
     // Bindings
     this.loadMoreCards = this.loadMoreCards.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.removeModal = this.removeModal.bind(this);
 
     // Handle the infinite scroll
     window.onscroll = debounce(() => {
@@ -36,10 +40,25 @@ export class App extends React.Component {
     });
   }
 
+  handleClick(cardData) {
+    this.setState({ modalCard: cardData });
+  }
+
+  removeModal() {
+    this.setState({ modalCard: false });
+  }
+
   renderCards() {
     return this.state.cards
       .slice(0, this.state.cardsShown)
-      .map((card, index) => <Card key={index} cardData={card} />);
+      .map((card, index) => (
+        <Card
+          key={index}
+          cardData={card}
+          // onClick={() => this.setState({ modalCard: card })}
+          clickHandler={this.handleClick}
+        />
+      ));
   }
 
   loadMoreCards() {
@@ -53,6 +72,14 @@ export class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {this.state.modalCard ? (
+          <Modal
+            cardData={this.state.modalCard}
+            handleClick={this.removeModal}
+          />
+        ) : (
+          <div />
+        )}
         <h1>Product Cards</h1>
         <h2>Now with infinite scroll!</h2>
         <div
