@@ -6,6 +6,8 @@ import debounce from "lodash.debounce";
 import { Card } from "./Card";
 import { Modal } from "./Modal";
 
+import "./App.css";
+
 export class App extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,6 @@ export class App extends React.Component {
     };
 
     // Bindings
-    this.loadMoreCards = this.loadMoreCards.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.removeModal = this.removeModal.bind(this);
 
@@ -48,51 +49,24 @@ export class App extends React.Component {
     this.setState({ modalCard: false });
   }
 
-  renderCards() {
-    return this.state.cards
-      .slice(0, this.state.cardsShown)
-      .map((card, index) => (
-        <Card
-          key={index}
-          cardData={card}
-          // onClick={() => this.setState({ modalCard: card })}
-          clickHandler={this.handleClick}
-        />
-      ));
-  }
-
-  loadMoreCards() {
-    const cardsShown = this.state.cardsShown;
-
-    this.setState({
-      cardsShown: cardsShown + 6
-    });
-  }
-
   render() {
+    const { modalCard, cardsShown, cards } = this.state;
+
     return (
-      <div className="App">
-        {this.state.modalCard ? (
-          <Modal
-            cardData={this.state.modalCard}
-            handleClick={this.removeModal}
-          />
+      <div className="app">
+        <div className={modalCard ? "modal-out" : ""} />
+        {modalCard ? (
+          <Modal cardData={modalCard} handleClick={this.removeModal} />
         ) : (
-          <div />
+          ""
         )}
         <h1>Product Cards</h1>
         <h2>Now with infinite scroll!</h2>
-        <div
-          className="cards-container"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-around"
-          }}
-        >
-          {this.renderCards()}
+        <div className="cards-container">
+          {cards.slice(0, cardsShown).map((card, index) => (
+            <Card key={index} cardData={card} clickHandler={this.handleClick} />
+          ))}
         </div>
-        <button onClick={this.loadMoreCards}>Load More</button>
       </div>
     );
   }

@@ -1,0 +1,14 @@
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.modal-out {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}

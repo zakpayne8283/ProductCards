@@ -1,0 +1,7 @@
+.card {
+  flex-basis: 31%;
+}
+
+.card img {
+  max-width: 100%;
+}
