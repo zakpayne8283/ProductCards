@@ -6,10 +6,7 @@ export class Card extends React.Component {
   render() {
     if (this.props.cardData === "skeleton") {
       return (
-        <div
-          className="card"
-          onClick={() => this.props.clickHandler(this.props.cardData)}
-        >
+        <div className="card skeleton-card">
           <div className="skeleton skeleton-image" />
           <p className="skeleton skeleton-paragraph" />
         </div>

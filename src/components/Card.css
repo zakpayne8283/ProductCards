@@ -7,9 +7,45 @@
   }
 }
 
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 .card {
-  flex-basis: 31%;
+  flex-basis: 30%;
   margin-bottom: 25px;
+}
+
+.card:not(.skeleton-card) {
+  box-shadow: 1px 1px 15px gray;
+}
+
+.card:not(.skeleton-card):hover {
+  animation: shake 0.72s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+
+  cursor: pointer;
 }
 
 .card img {
