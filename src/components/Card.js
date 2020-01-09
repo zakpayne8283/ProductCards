@@ -15,7 +15,6 @@ export class Card extends React.Component {
         </div>
       );
     }
-
     const { url, title } = this.props.cardData;
 
     return (
