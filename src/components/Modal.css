@@ -1,0 +1,12 @@
+.modal {
+  background-color: white;
+  position: fixed;
+  top: 2vh;
+  left: 2vw;
+  width: 94vw;
+  height: 94vh;
+}
+
+.modal img {
+  max-height: 200px;
+}
