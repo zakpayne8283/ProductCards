@@ -6,4 +6,4 @@ Created with CodeSandbox
 * Stop scroll during modal
 * Animate new cards in
 * ~~Skeleton Screen w/ shimmer~~
-* Shake animate on hover
+* ~~Shake animate on hover~~
