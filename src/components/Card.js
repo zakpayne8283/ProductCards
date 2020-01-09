@@ -14,12 +14,15 @@ export class Card extends React.Component {
     }
     const { url, title } = this.props.cardData;
 
+    // This is because the colors from the default API sucks.
+    const certainColorURL = "https://via.placeholder.com/600/66b7d2";
+
     return (
       <div
         className="card"
         onClick={() => this.props.clickHandler(this.props.cardData)}
       >
-        <img src={url} alt={title} />
+        <img src={certainColorURL} alt={title} />
         <p>{title}</p>
       </div>
     );
