@@ -1,10 +1,19 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+}
 .cards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-.modal-out {
+.overlay {
+  display: none;
+}
+
+.modal-out .overlay {
+  display: block;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;

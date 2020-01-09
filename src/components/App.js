@@ -14,7 +14,8 @@ export class App extends React.Component {
     this.state = {
       cards: [],
       cardsShown: 9,
-      modalCard: false
+      modalCard: false,
+      loaded: false
     };
 
     // Bindings
@@ -35,10 +36,15 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("https://jsonplaceholder.typicode.com/photos").then(res => {
-      const cardsData = res.data;
-      this.setState({ cards: cardsData });
-    });
+    // Set how much time for shimmer effect.
+    this.timer = setInterval(
+      () =>
+        axios.get("https://jsonplaceholder.typicode.com/photos").then(res => {
+          const cardsData = res.data;
+          this.setState({ cards: cardsData, loaded: true });
+        }),
+      5000
+    );
   }
 
   handleClick(cardData) {
@@ -50,11 +56,12 @@ export class App extends React.Component {
   }
 
   render() {
-    const { modalCard, cardsShown, cards } = this.state;
+    const { modalCard, cardsShown, cards, loaded } = this.state;
 
     return (
-      <div className="app">
-        <div className={modalCard ? "modal-out" : ""} />
+      // <div className="app">
+      <div className={["app", modalCard ? "modal-out" : ""].join(" ")}>
+        <div className="overlay" />
         {modalCard ? (
           <Modal cardData={modalCard} handleClick={this.removeModal} />
         ) : (
@@ -66,6 +73,11 @@ export class App extends React.Component {
           {cards.slice(0, cardsShown).map((card, index) => (
             <Card key={index} cardData={card} clickHandler={this.handleClick} />
           ))}
+          {loaded
+            ? ""
+            : [...Array(cardsShown)].map(index => (
+                <Card key={index} cardData={"skeleton"} />
+              ))}
         </div>
       </div>
     );
